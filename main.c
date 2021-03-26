@@ -4,16 +4,33 @@
 #include "colorize.h"
 
 void showMenu();
+void handleRegisterNewClient();
 
 int main()
-{   
+{
+    char cpf[12];
+    int option = 0;
+
+    //Shows menu and await for an choise
     showMenu();
+    scanf("%d", &option);
+    switch (option)
+    {
+    case 1:
+        handleRegisterNewClient();
+        break;
+
+    default:
+        showMenu();
+        break;
+    }
 
     return 0;
 }
 
 void showMenu()
-{   
+{
+    system("cls");
     colorize(BLACK, DARK_BLUE);
     printf("           _____              _____ _        _   _                       \n");
     printf("          / ____|            / ____| |      | | (_)                      \n");
@@ -40,4 +57,22 @@ void showMenu()
     printf("\t  |5 - Resgatar pontos.                                   |\n");
     printf("\t  |0 - Sair.                                              |\n");
     printf("\t  |_______________________________________________________|\n\n");
+    colorize(BLACK, LIGHT_YELLOW);
+    printf(">> INSIRA SUA ESCOLHA: ");
+    colorize(BLACK, LIGHT_BLACK);
+}
+
+void handleRegisterNewClient(){
+    char cpf[12];
+    char name[60];
+
+    colorize(BLACK, LIGHT_YELLOW);
+    printf("Informe o CPF do cliente: ");
+    colorize(BLACK, LIGHT_BLACK);
+    scanf(" %[^\n]",&cpf);
+
+    colorize(BLACK, LIGHT_YELLOW);
+    printf("Informe o nome do cliente: ");
+    colorize(BLACK, LIGHT_BLACK);
+    scanf(" %[^\n]",&name);
 }
