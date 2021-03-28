@@ -1,4 +1,5 @@
 void showMenu();
 void handleSelectChoices();
 void handleExitOrGoBackToMainMenu();
+void handleRegisterNewVehicle();
 void handleRegisterNewClient();

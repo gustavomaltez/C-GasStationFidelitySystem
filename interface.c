@@ -50,7 +50,9 @@ void handleSelectChoices()
     case 1:
         handleRegisterNewClient();
         break;
-
+    case 2:
+        handleRegisterNewVehicle();
+        break;
     default:
         showMenu();
         break;
@@ -84,7 +86,7 @@ void handleExitOrGoBackToMainMenu()
 //Lida com o registro de um novo cliente
 void handleRegisterNewClient()
 {
-    char cpf[12];
+    char cpf[11];
     char name[60];
 
     colorize(BLACK, LIGHT_YELLOW);
@@ -111,7 +113,7 @@ void handleRegisterNewClient()
         printf("Informe o nome do cliente: ");
         colorize(BLACK, LIGHT_BLACK);
         scanf(" %[^\n]", &name);
-        
+
         int status = handleRegisterClientInDatabase(cpf, name);
 
         if (status)
@@ -126,5 +128,60 @@ void handleRegisterNewClient()
             printf("[ERRO] Ocorreu um erro ao registrar o cliente!");
             handleExitOrGoBackToMainMenu();
         }
+    }
+}
+
+//Lida com o registro de um novo veículo
+void handleRegisterNewVehicle()
+{
+    char cpf[11];
+    char licensePlate[7];
+
+    colorize(BLACK, LIGHT_YELLOW);
+    printf("Informe o CPF do cliente: ");
+    colorize(BLACK, LIGHT_BLACK);
+    scanf(" %[^\n]", &cpf);
+
+    if (strlen(cpf) != 11)
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] O CPF precisa ter 11 digitos!");
+        handleExitOrGoBackToMainMenu();
+    }
+
+    if (!isClientAlreadyRegistered(cpf))
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] Nao existe nenhum cliente com esse CPF");
+        handleExitOrGoBackToMainMenu();
+    }
+    else
+    {
+        colorize(BLACK, LIGHT_YELLOW);
+        printf("Informe a placa do veiculo: ");
+        colorize(BLACK, LIGHT_BLACK);
+        scanf(" %[^\n]", &licensePlate);
+
+        if (strlen(licensePlate) != 7)
+        {
+            colorize(BLACK, DARK_RED);
+            printf("[ERRO] A placa precisa ter 7 caracteres!");
+            handleExitOrGoBackToMainMenu();
+        }
+        
+        // int status = handleRegisterClientInDatabase(cpf, name);
+
+        // if (status)
+        // {
+        //     colorize(BLACK, LIGHT_GREEN);
+        //     printf("Sucesso! Veiculo registrado no sistema!");
+        //     handleExitOrGoBackToMainMenu();
+        // }
+        // else
+        // {
+        //     colorize(BLACK, DARK_RED);
+        //     printf("[ERRO] Ocorreu um erro ao registrar o veiculo!");
+        //     handleExitOrGoBackToMainMenu();
+        // }
     }
 }
