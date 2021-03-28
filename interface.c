@@ -50,6 +50,9 @@ void handleSelectChoices()
 
     switch (option)
     {
+    case 0:
+        exit(0);
+        break;
     case 1:
         handleRegisterNewClient();
         break;
@@ -96,7 +99,7 @@ void handleRegisterNewClient()
     printf("Informe o CPF do cliente: ");
     colorize(BLACK, LIGHT_BLACK);
     scanf(" %[^\n]", &cpf);
-    
+
     if (strlen(cpf) != 11)
     {
         colorize(BLACK, DARK_RED);
@@ -159,19 +162,19 @@ void handleRegisterNewVehicle()
         handleExitOrGoBackToMainMenu();
     }
     else
-    {   
+    {
         colorize(BLACK, LIGHT_YELLOW);
         printf("Informe a placa do veiculo: ");
         colorize(BLACK, LIGHT_BLACK);
-        scanf(" %[^\n]",&licensePlate);
-        
+        scanf(" %[^\n]", &licensePlate);
+
         if (strlen(licensePlate) != 7)
         {
             colorize(BLACK, DARK_RED);
             printf("[ERRO] A placa precisa ter 7 caracteres!");
             handleExitOrGoBackToMainMenu();
         }
-        
+
         if (isVehicleAlreadyRegistered(licensePlate))
         {
             colorize(BLACK, DARK_RED);
@@ -179,7 +182,7 @@ void handleRegisterNewVehicle()
             handleExitOrGoBackToMainMenu();
         }
         else
-        {   
+        {
             int status = handleRegisterVehicleInDatabase(cpf, licensePlate);
 
             if (status)
