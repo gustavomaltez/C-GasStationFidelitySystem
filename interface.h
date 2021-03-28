@@ -1,0 +1,2 @@
+void showMenu();
+void handleRegisterNewClient();

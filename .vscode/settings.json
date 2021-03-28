@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "colorize.h": "c",
+        "sqlite3.h": "c",
+        "stdlib.h": "c"
     }
 }
