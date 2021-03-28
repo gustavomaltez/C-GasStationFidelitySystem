@@ -101,5 +101,8 @@ void handleRegisterNewClient()
         colorize(BLACK, DARK_RED);
         printf("[ERRO] Ja existe um cliente com esse CPF cadastrado!");
         handleExitOrGoBackToMainMenu();
+    }else{
+        printf("Ok, esse cliente não existe!");
     }
+
 }
