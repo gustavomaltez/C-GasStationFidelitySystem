@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "colorize.h"
 #include "middlewares.h"
+#include "interface.h"
 
 // Mostra a tela inicial do sistema
 void showMenu()
@@ -35,28 +36,46 @@ void showMenu()
     printf("\t  |_______________________________________________________|\n\n");
     colorize(BLACK, LIGHT_YELLOW);
     printf(">> INSIRA SUA ESCOLHA: ");
-    
 }
 
-//Função chamada quando ocorre algum erro e é preciso voltar para 
+// Lida com a escolha de uma opção pelo usuário
+void handleSelectChoices()
+{
+    int option;
+    scanf("%d", &option);
+
+    switch (option)
+    {
+    case 1:
+        handleRegisterNewClient();
+        break;
+
+    default:
+        showMenu();
+        break;
+    }
+}
+
+//Função chamada quando ocorre algum erro e é preciso voltar para
 //o menu principal ou sair
 void handleExitOrGoBackToMainMenu()
-{   
-    int option = 0;
+{
+    int option;
 
     colorize(BLACK, DARK_BLUE);
     printf("\nDigite (1) para voltar ao menu ou qualquer outra tecla para sair: ");
     colorize(BLACK, LIGHT_BLACK);
-    
+
     scanf("%d", &option);
 
     switch (option)
     {
     case 1:
         showMenu();
+        handleSelectChoices();
         break;
     default:
-        exit(0);
+        exit(1);
         break;
     }
 }
@@ -77,27 +96,10 @@ void handleRegisterNewClient()
     colorize(BLACK, LIGHT_BLACK);
     scanf(" %[^\n]", &name);
 
-    if(isClientAlreadyRegistered(cpf)){
+    if (isClientAlreadyRegistered(cpf))
+    {
         colorize(BLACK, DARK_RED);
         printf("[ERRO] Ja existe um cliente com esse CPF cadastrado!");
         handleExitOrGoBackToMainMenu();
-    }
-}
-
-// Lida com a escolha de uma opção pelo usuário
-void handleSelectChoices()
-{
-    int option = 0;
-
-    scanf("%d", &option);
-    switch (option)
-    {
-    case 1:
-        handleRegisterNewClient();
-        break;
-
-    default:
-        showMenu();
-        break;
     }
 }

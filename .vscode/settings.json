@@ -3,6 +3,7 @@
         "typeinfo": "c",
         "colorize.h": "c",
         "sqlite3.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "interface.h": "c"
     }
 }
