@@ -3,6 +3,7 @@
 #include "colorize.h"
 #include "middlewares.h"
 #include "interface.h"
+#include <string.h>
 
 // Mostra a tela inicial do sistema
 void showMenu()
@@ -91,6 +92,13 @@ void handleRegisterNewClient()
     colorize(BLACK, LIGHT_BLACK);
     scanf(" %[^\n]", &cpf);
 
+    if (strlen(cpf) != 11)
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] O CPF precisa ter 11 digitos!");
+        handleExitOrGoBackToMainMenu();
+    }
+    
     colorize(BLACK, LIGHT_YELLOW);
     printf("Informe o nome do cliente: ");
     colorize(BLACK, LIGHT_BLACK);
@@ -101,8 +109,9 @@ void handleRegisterNewClient()
         colorize(BLACK, DARK_RED);
         printf("[ERRO] Ja existe um cliente com esse CPF cadastrado!");
         handleExitOrGoBackToMainMenu();
-    }else{
+    }
+    else
+    {
         printf("Ok, esse cliente não existe!");
     }
-
 }
