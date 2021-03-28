@@ -15,6 +15,13 @@ int isClientAlreadyRegistered(char* cpf){
         return 0;  
 }
 
+//Registra um cliente no banco de dados
+//Retorna 1 se deu certo ou 0 se deu erro
+int handleRegisterClientInDatabase(char* cpf, char* name)
+{
+    return registerClient(cpf, name);
+}
+
 int isVehicleAlreadyRegistered(){
     return 0;
 }

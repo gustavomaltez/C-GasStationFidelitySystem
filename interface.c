@@ -98,11 +98,6 @@ void handleRegisterNewClient()
         printf("[ERRO] O CPF precisa ter 11 digitos!");
         handleExitOrGoBackToMainMenu();
     }
-    
-    colorize(BLACK, LIGHT_YELLOW);
-    printf("Informe o nome do cliente: ");
-    colorize(BLACK, LIGHT_BLACK);
-    scanf(" %[^\n]", &name);
 
     if (isClientAlreadyRegistered(cpf))
     {
@@ -112,6 +107,24 @@ void handleRegisterNewClient()
     }
     else
     {
-        printf("Ok, esse cliente não existe!");
+        colorize(BLACK, LIGHT_YELLOW);
+        printf("Informe o nome do cliente: ");
+        colorize(BLACK, LIGHT_BLACK);
+        scanf(" %[^\n]", &name);
+        
+        int status = handleRegisterClientInDatabase(cpf, name);
+
+        if (status)
+        {
+            colorize(BLACK, LIGHT_GREEN);
+            printf("Sucesso! Cliente registrado no sistema!");
+            handleExitOrGoBackToMainMenu();
+        }
+        else
+        {
+            colorize(BLACK, DARK_RED);
+            printf("[ERRO] Ocorreu um erro ao registrar o cliente!");
+            handleExitOrGoBackToMainMenu();
+        }
     }
 }

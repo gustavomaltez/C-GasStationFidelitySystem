@@ -22,12 +22,12 @@ int initializeDatabase()
     }
 
     char *sql = "CREATE TABLE IF NOT EXISTS `user`"
-                "(`cpf`  varchar(12) NOT NULL  PRIMARY KEY,"
+                "(`cpf`  varchar(11) NOT NULL  PRIMARY KEY,"
                 "`name` varchar(60) NOT NULL);"
                 "CREATE TABLE IF NOT EXISTS `vehicle`("
                 " `plate`  varchar(7) NOT NULL PRIMARY KEY,"
                 "`liters` FLOAT NOT NULL DEFAULT 0,"
-                "`owner_cpf` varchar(12),"
+                "`owner_cpf` varchar(11),"
                 "FOREIGN KEY(owner_cpf) REFERENCES user(cpf));";
 
     if (sqlite3_exec(database, sql, 0, 0, 0) != SQLITE_OK)
@@ -41,11 +41,14 @@ int initializeDatabase()
     }
 }
 
+//Fecha a conexão com o banco de dados
 void closeDatabaseConnection()
 {
     sqlite3_close(database);
 }
 
+//Busca um cliente por CPF
+//Retorna "" se o cliente não exister ou o CPF do cliente se existir
 const unsigned char *searchClientByCPF(char *cpf)
 {
     char query[100] = "SELECT * from user WHERE (cpf == \"";
@@ -65,4 +68,18 @@ const unsigned char *searchClientByCPF(char *cpf)
     {
        return "";
     }
+}
+
+int registerClient(char* cpf, char* name)
+{
+    char query[100] = "INSERT INTO user VALUES (\"";
+    strcat(query, cpf);
+    strcat(query, "\",\"");
+    strcat(query, name);
+    strcat(query, "\");");
+
+    if (sqlite3_exec(database, query, 0, 0, 0) != SQLITE_OK)
+        return 0;
+    else
+        return 1;
 }
