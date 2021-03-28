@@ -1,4 +1,7 @@
+#include "database.h"
+
 int isClientAlreadyRegistered(char* cpf){
+    
     return 1;
 }
 

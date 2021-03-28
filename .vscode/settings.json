@@ -4,6 +4,7 @@
         "colorize.h": "c",
         "sqlite3.h": "c",
         "stdlib.h": "c",
-        "interface.h": "c"
+        "interface.h": "c",
+        "database.h": "c"
     }
 }
