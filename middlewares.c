@@ -4,24 +4,42 @@
 //Busca por um cliente no banco de dados usando um CPF
 //Caso o cliente exista retorna 1
 //Caso o cliente não exista retorna 0
-int isClientAlreadyRegistered(char* cpf){
+int isClientAlreadyRegistered(char *cpf)
+{
 
     //A função pode retornar "" ou o CPF do cliente buscado
-    const unsigned char* clientCPF = searchClientByCPF(cpf);
+    const unsigned char *clientCPF = searchClientByCPF(cpf);
 
-    if(strcmp(clientCPF,cpf) == 0)
+    if (strcmp(clientCPF, cpf) == 0)
         return 1;
     else
-        return 0;  
+        return 0;
 }
 
 //Registra um cliente no banco de dados
 //Retorna 1 se deu certo ou 0 se deu erro
-int handleRegisterClientInDatabase(char* cpf, char* name)
+int handleRegisterClientInDatabase(char *cpf, char *name)
 {
     return registerClient(cpf, name);
 }
 
-int isVehicleAlreadyRegistered(){
-    return 0;
+//Registra um veículo no banco de dados
+//Retorna 1 se deu certo ou 0 se deu erro
+int handleRegisterVehicleInDatabase(char* cpf, char* licensePlate)
+{
+    return registerVehicle(cpf, licensePlate);
+}
+
+//Busca por um veículo no banco de dados usando uma placa
+//Caso o veículo exista retorna 1
+//Caso o veículo não exista retorna 0
+int isVehicleAlreadyRegistered(char *licensePlate)
+{
+    //A função pode retornar "" ou a placa do veiculo
+    const unsigned char *vehicleLicensePlate = searchVehicleByLicensePlate(licensePlate);
+
+    if (strcmp(vehicleLicensePlate, licensePlate) == 0)
+        return 1;
+    else
+        return 0;
 }

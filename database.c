@@ -66,16 +66,52 @@ const unsigned char *searchClientByCPF(char *cpf)
 
     if (sqlite3_step(stmt) != SQLITE_ROW)
     {
-       return "";
+        return "";
     }
 }
 
-int registerClient(char* cpf, char* name)
+const unsigned char *searchVehicleByLicensePlate(char *licensePlate)
+{
+    char query[100] = "SELECT * from vehicle WHERE (plate == \"";
+    strcat(query, licensePlate);
+    strcat(query, "\");");
+
+    sqlite3_stmt *stmt = NULL;
+    sqlite3_prepare_v2(database, query, -1, &stmt, 0);
+
+    while (sqlite3_step(stmt) == SQLITE_ROW)
+    {
+        const unsigned char *vehicleLicensePlate = sqlite3_column_text(stmt, 0);
+        return vehicleLicensePlate;
+    }
+
+    if (sqlite3_step(stmt) != SQLITE_ROW)
+    {
+        return "";
+    }
+}
+
+int registerClient(char *cpf, char *name)
 {
     char query[100] = "INSERT INTO user VALUES (\"";
     strcat(query, cpf);
     strcat(query, "\",\"");
     strcat(query, name);
+    strcat(query, "\");");
+
+    if (sqlite3_exec(database, query, 0, 0, 0) != SQLITE_OK)
+        return 0;
+    else
+        return 1;
+}
+
+int registerVehicle(char *cpf, char *licensePlate)
+{
+    char query[100] = "INSERT INTO vehicle VALUES (\"";
+    strcat(query, licensePlate);
+    strcat(query, "\",\"");
+    strcat(query, "0\",\"");
+    strcat(query, cpf);
     strcat(query, "\");");
 
     if (sqlite3_exec(database, query, 0, 0, 0) != SQLITE_OK)

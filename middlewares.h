@@ -1,3 +1,4 @@
 int isClientAlreadyRegistered(char* cpf);
 int handleRegisterClientInDatabase(char* cpf, char* name);
-int isVehicleAlreadyRegistered();
+int handleRegisterVehicleInDatabase(char* cpf, char* licensePlate);
+int isVehicleAlreadyRegistered(char* licensePlate);
