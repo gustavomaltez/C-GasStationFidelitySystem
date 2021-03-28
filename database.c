@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "colorize.h"
 
+//Inicializa o banco de dados, criando as tabelas principais caso elas não existam
+//Retorna 1 se a operação deu certo e 0 se deu errado
 int initializeDatabase(sqlite3 *database)
 {
     sqlite3_open("database.db", &database);
@@ -11,7 +13,7 @@ int initializeDatabase(sqlite3 *database)
     {
         colorize(BLACK, DARK_RED);
         printf("Erro ao abrir o banco de dados! Por favor reinicie o software!\n");
-        exit(0);
+        return 0;
     }
 
     char *sql = "CREATE TABLE IF NOT EXISTS `user`"

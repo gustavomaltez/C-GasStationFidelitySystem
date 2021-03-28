@@ -7,9 +7,6 @@
 
 int main()
 {
-    char cpf[12];
-    int option = 0;
-
     //Cria as variáveis usadas para a conexão com o banco de dados
     sqlite3 *db;
     char *databaseErrorMsg = 0;
@@ -26,17 +23,8 @@ int main()
     //Mostra o menu padrão
     showMenu();
 
-    scanf("%d", &option);
-    switch (option)
-    {
-    case 1:
-        handleRegisterNewClient();
-        break;
-
-    default:
-        showMenu();
-        break;
-    }
+    //Lida com a seleção de uma escolha do usuário
+    handleSelectChoices();
 
     //Close database connection before exit
     sqlite3_close(db);

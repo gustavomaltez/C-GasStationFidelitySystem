@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "colorize.h"
 
+// Mostra a tela inicial do sistema
 void showMenu()
 {
     system("cls");
@@ -36,6 +37,7 @@ void showMenu()
     colorize(BLACK, LIGHT_BLACK);
 }
 
+//Lida com o registro de um novo cliente
 void handleRegisterNewClient()
 {
     char cpf[12];
@@ -50,4 +52,22 @@ void handleRegisterNewClient()
     printf("Informe o nome do cliente: ");
     colorize(BLACK, LIGHT_BLACK);
     scanf(" %[^\n]", &name);
+}
+
+// Lida com a escolha de uma opção pelo usuário
+void handleSelectChoices()
+{
+    int option = 0;
+
+    scanf("%d", &option);
+    switch (option)
+    {
+    case 1:
+        handleRegisterNewClient();
+        break;
+
+    default:
+        showMenu();
+        break;
+    }
 }
