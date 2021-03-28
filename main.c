@@ -5,20 +5,17 @@
 #include "interface.h"
 #include "sqlite3.h"
 
+//CVariável global para accesso ao banco de dados
+sqlite3 *database;
+
 int main()
 {
-    //Cria as variáveis usadas para a conexão com o banco de dados
-    sqlite3 *db;
-    char *databaseErrorMsg = 0;
-
     //Inicializa o banco de dados
-    int databaseConnectionStatus = initializeDatabase(db);
+    int databaseConnectionStatus = initializeDatabase();
 
     //Caso ocorra algum erro na inicialização do banco, fecha a aplicação
     if (databaseConnectionStatus == 0)
-    {
         return 0;
-    }
 
     //Mostra o menu padrão
     showMenu();
@@ -27,7 +24,7 @@ int main()
     handleSelectChoices();
 
     //Close database connection before exit
-    sqlite3_close(db);
+    sqlite3_close(database);
 
     return 0;
 }
