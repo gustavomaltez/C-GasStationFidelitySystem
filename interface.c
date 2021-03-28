@@ -35,7 +35,30 @@ void showMenu()
     printf("\t  |_______________________________________________________|\n\n");
     colorize(BLACK, LIGHT_YELLOW);
     printf(">> INSIRA SUA ESCOLHA: ");
+    
+}
+
+//Função chamada quando ocorre algum erro e é preciso voltar para 
+//o menu principal ou sair
+void handleExitOrGoBackToMainMenu()
+{   
+    int option = 0;
+
+    colorize(BLACK, DARK_BLUE);
+    printf("\nDigite (1) para voltar ao menu ou qualquer outra tecla para sair: ");
     colorize(BLACK, LIGHT_BLACK);
+    
+    scanf("%d", &option);
+
+    switch (option)
+    {
+    case 1:
+        showMenu();
+        break;
+    default:
+        exit(0);
+        break;
+    }
 }
 
 //Lida com o registro de um novo cliente
@@ -57,6 +80,7 @@ void handleRegisterNewClient()
     if(isClientAlreadyRegistered(cpf)){
         colorize(BLACK, DARK_RED);
         printf("[ERRO] Ja existe um cliente com esse CPF cadastrado!");
+        handleExitOrGoBackToMainMenu();
     }
 }
 
