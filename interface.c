@@ -26,15 +26,18 @@ void showMenu()
     printf("                             |___/          |___/                       \n\n");
 
     colorize(BLACK, DARK_YELLOW);
-    printf("\t   _______________________________________________________ \n");
-    printf("\t  |                       M E N U                         |\n");
-    printf("\t  |1 - Cadastrar novo cliente.                            |\n");
-    printf("\t  |2 - Cadastrar novo veiculo.                            |\n");
-    printf("\t  |3 - Adicionar litros abastecidos pelo cliente.         |\n");
-    printf("\t  |4 - Verificar total de litros abastecidos pelo cliente.|\n");
-    printf("\t  |5 - Resgatar pontos.                                   |\n");
-    printf("\t  |0 - Sair.                                              |\n");
-    printf("\t  |_______________________________________________________|\n\n");
+    printf("\t  _______________________________________________________ \n");
+    printf("\t |                       M E N U                         |\n");
+    printf("\t |1 - Cadastrar novo cliente.                            |\n");
+    printf("\t |2 - Cadastrar novo veiculo.                            |\n");
+    printf("\t |3 - Abastecer veiculo.                                 |\n");
+    printf("\t |4 - Consultar total de litros abastecidos por cliente. |\n");
+    printf("\t |5 - Apagar cliente                                     |\n");
+    printf("\t |6 - Listar todos os clientes.                          |\n");
+    printf("\t |7 - Listar veiculos de um cliente.                     |\n");
+    printf("\t |8 - Resgatar pontos de um cliente.                     |\n");
+    printf("\t |0 - Sair.                                              |\n");
+    printf("\t |_______________________________________________________|\n\n");
     colorize(BLACK, LIGHT_YELLOW);
     printf(">> INSIRA SUA ESCOLHA: ");
 }
