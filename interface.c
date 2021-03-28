@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "colorize.h"
+#include "middlewares.h"
 
 // Mostra a tela inicial do sistema
 void showMenu()
@@ -52,6 +53,11 @@ void handleRegisterNewClient()
     printf("Informe o nome do cliente: ");
     colorize(BLACK, LIGHT_BLACK);
     scanf(" %[^\n]", &name);
+
+    if(isClientAlreadyRegistered(cpf)){
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] Ja existe um cliente com esse CPF cadastrado!");
+    }
 }
 
 // Lida com a escolha de uma opção pelo usuário

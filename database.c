@@ -35,3 +35,5 @@ int initializeDatabase(sqlite3 *database)
         return 1;
     }
 }
+
+

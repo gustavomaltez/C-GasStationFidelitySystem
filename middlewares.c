@@ -1,5 +1,5 @@
-int isClientAlreadyRegistered(){
-    return 0;
+int isClientAlreadyRegistered(char* cpf){
+    return 1;
 }
 
 int isVehicleAlreadyRegistered(){
