@@ -50,3 +50,10 @@ int isVehicleAlreadyRegistered(char *licensePlate)
     else
         return 0;
 }
+
+//Atualiza o nome de um cliente no banco de dados com base no cpf
+//Retorna 1 se der certo e 0 se der errado
+int handleUpdateClientNameInDatabase(char *cpf, char *name)
+{
+    return updateClientName(cpf,name);
+}

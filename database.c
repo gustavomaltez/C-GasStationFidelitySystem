@@ -119,7 +119,7 @@ int deleteClientAndVehicles(char *cpf)
     strcat(query, "DELETE FROM vehicle WHERE (owner_cpf ==\"");
     strcat(query, cpf);
     strcat(query, "\"); ");
-    printf("\n%s",query);
+    printf("\n%s", query);
 
     if (sqlite3_exec(database, query, 0, 0, 0) != SQLITE_OK)
         return 0;
@@ -135,6 +135,22 @@ int registerVehicle(char *cpf, char *licensePlate)
     strcat(query, licensePlate);
     strcat(query, "\",\"");
     strcat(query, "0\",\"");
+    strcat(query, cpf);
+    strcat(query, "\");");
+
+    if (sqlite3_exec(database, query, 0, 0, 0) != SQLITE_OK)
+        return 0;
+    else
+        return 1;
+}
+
+//Atualiza o nome de um cliente no banco de dados com base no cpf
+//Retorna 1 se der certo e 0 se der errado
+int updateClientName(char *cpf, char *name)
+{
+    char query[100] = "UPDATE user SET name=\"";
+    strcat(query, name);
+    strcat(query, "\" WHERE (cpf == \"");
     strcat(query, cpf);
     strcat(query, "\");");
 

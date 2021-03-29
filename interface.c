@@ -63,6 +63,9 @@ void handleSelectChoices()
     case 5:
         handleDeleteClient();
         break;
+    case 9:
+        handleChangeClientName();
+        break;
     default:
         showMenu();
         break;
@@ -230,7 +233,7 @@ void handleDeleteClient()
     }
     else
     {
-        
+
         int status = handleDeleteClientInDatabase(cpf);
 
         if (status)
@@ -243,6 +246,54 @@ void handleDeleteClient()
         {
             colorize(BLACK, DARK_RED);
             printf("[ERRO] Ocorreu um erro ao deletar o cliente!");
+            handleExitOrGoBackToMainMenu();
+        }
+    }
+}
+
+// terminar
+void handleChangeClientName()
+{
+    char cpf[12];
+    char name[60];
+
+    colorize(BLACK, LIGHT_YELLOW);
+    printf("Informe o CPF do cliente: ");
+    colorize(BLACK, LIGHT_BLACK);
+    scanf(" %[^\n]", &cpf);
+
+    if (strlen(cpf) != 11)
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] O CPF precisa ter 11 digitos!");
+        handleExitOrGoBackToMainMenu();
+    }
+
+    if (!isClientAlreadyRegistered(cpf))
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] Nao existe nenhum cliente com esse CPF");
+        handleExitOrGoBackToMainMenu();
+    }
+    else
+    {
+        colorize(BLACK, LIGHT_YELLOW);
+        printf("Informe o novo nome do cliente: ");
+        colorize(BLACK, LIGHT_BLACK);
+        scanf(" %[^\n]", &name);
+
+        int status = handleUpdateClientNameInDatabase(cpf, name);
+
+        if (status)
+        {
+            colorize(BLACK, LIGHT_GREEN);
+            printf("Sucesso! Nome do cliente atualizado!");
+            handleExitOrGoBackToMainMenu();
+        }
+        else
+        {
+            colorize(BLACK, DARK_RED);
+            printf("[ERRO] Ocorreu um erro ao atualizar o nome do cliente!");
             handleExitOrGoBackToMainMenu();
         }
     }
