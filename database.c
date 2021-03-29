@@ -70,6 +70,8 @@ const unsigned char *searchClientByCPF(char *cpf)
     }
 }
 
+//Busca por um veículo com base na placa
+//Retorna a placa do veículo se der certo ou "" se der errado
 const unsigned char *searchVehicleByLicensePlate(char *licensePlate)
 {
     char query[100] = "SELECT * from vehicle WHERE (plate == \"";
@@ -91,6 +93,8 @@ const unsigned char *searchVehicleByLicensePlate(char *licensePlate)
     }
 }
 
+//Registra um cliente no sistema com nome e cpf
+//Retorna 1 se der certo ou 0 se der erro
 int registerClient(char *cpf, char *name)
 {
     char query[100] = "INSERT INTO user VALUES (\"";
@@ -105,6 +109,8 @@ int registerClient(char *cpf, char *name)
         return 1;
 }
 
+//Remove um cliente e seus veículos do banco de dados
+//Retorna 1 se der certo ou 0 se der erro
 int deleteClientAndVehicles(char *cpf)
 {
     char query[100] = "DELETE FROM user WHERE (cpf ==\"";
@@ -121,6 +127,8 @@ int deleteClientAndVehicles(char *cpf)
         return 1;
 }
 
+//Registra um  veículo com base no cpf e placa do mesmo
+//retorna 1 se der certo ou 0 se der errado
 int registerVehicle(char *cpf, char *licensePlate)
 {
     char query[100] = "INSERT INTO vehicle VALUES (\"";
