@@ -119,7 +119,6 @@ int deleteClientAndVehicles(char *cpf)
     strcat(query, "DELETE FROM vehicle WHERE (owner_cpf ==\"");
     strcat(query, cpf);
     strcat(query, "\"); ");
-    printf("\n%s", query);
 
     if (sqlite3_exec(database, query, 0, 0, 0) != SQLITE_OK)
         return 0;
