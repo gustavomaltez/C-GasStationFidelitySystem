@@ -9,3 +9,4 @@ int deleteClientAndVehicles(char* cpf);
 const char *getClients();
 const char *getAllVehiclesByCPF(char *cpf);
 float totalLitersFueledByCPF(char *cpf);
+int fuelVehicle(char* licensePlate, float liters);

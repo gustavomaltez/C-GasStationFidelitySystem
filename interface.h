@@ -8,3 +8,4 @@ void handleChangeClientName();
 void handleListAllClients();
 void handleListClientVehicles();
 void handleShowTotalLitersFueled();
+void handleFuelVehicle();

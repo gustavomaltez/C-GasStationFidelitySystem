@@ -193,7 +193,7 @@ const char *getClients()
 //Busca todos os veículos de um cliente e trás os dados formatados
 //Pode retornar a lista de veículos ou [NULL]
 const char *getAllVehiclesByCPF(char *cpf)
-{   
+{
     char query[100] = "SELECT * from vehicle WHERE (owner_cpf ==\"";
     strcat(query, cpf);
     strcat(query, "\");");
@@ -228,7 +228,7 @@ const char *getAllVehiclesByCPF(char *cpf)
 //Busca o total de litros abastecidos pelo cliente
 //Retorna o total de litros ou -1.0 se der erro
 float totalLitersFueledByCPF(char *cpf)
-{   
+{
     char query[100] = "SELECT * from vehicle WHERE (owner_cpf ==\"";
     strcat(query, cpf);
     strcat(query, "\");");
@@ -239,12 +239,12 @@ float totalLitersFueledByCPF(char *cpf)
     float totalLiters = 0.0;
 
     while (sqlite3_step(stmt) == SQLITE_ROW)
-    {   
+    {
         const unsigned char *litersInString = sqlite3_column_text(stmt, 1);
         //Converte a string retornada em um float
         float liters = atof(litersInString);
 
-        totalLiters+=liters;
+        totalLiters += liters;
     }
 
     return totalLiters;
@@ -253,4 +253,22 @@ float totalLitersFueledByCPF(char *cpf)
     {
         return -1.0;
     }
+}
+
+int fuelVehicle(char *licensePlate, float liters)
+{
+    //Converte o total de litros de float para string
+    char litersToString[10];
+    sprintf(litersToString, "%f", liters);
+
+    char query[100] = "UPDATE vehicle SET liters=liters+\"";
+    strcat(query, litersToString);
+    strcat(query, "\" WHERE (plate == \"");
+    strcat(query, licensePlate);
+    strcat(query, "\");");
+
+    if (sqlite3_exec(database, query, 0, 0, 0) != SQLITE_OK)
+        return 0;
+    else
+        return 1;
 }

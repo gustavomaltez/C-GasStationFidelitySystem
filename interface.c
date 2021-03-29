@@ -60,6 +60,9 @@ void handleSelectChoices()
     case 2:
         handleRegisterNewVehicle();
         break;
+    case 3:
+        handleFuelVehicle();
+        break;
     case 4:
         handleShowTotalLitersFueled();
         break;
@@ -420,7 +423,7 @@ void handleShowTotalLitersFueled()
             handleExitOrGoBackToMainMenu();
         }
         else
-        {   
+        {
             colorize(BLACK, DARK_CYAN);
             printf("O cliente com CPF \"%s\" abasteceu um total de %.2f litros\n", cpf, totalLiters);
             colorize(BLACK, DARK_CYAN);
@@ -428,6 +431,62 @@ void handleShowTotalLitersFueled()
             colorize(BLACK, LIGHT_CYAN);
             printf(clientVehiclesFormated);
             handleExitOrGoBackToMainMenu();
+        }
+    }
+}
+
+void handleFuelVehicle()
+{
+    char licensePlate[8];
+    float litersToFuel;
+
+    colorize(BLACK, LIGHT_YELLOW);
+    printf("Informe a placa do veiculo: ");
+    colorize(BLACK, LIGHT_BLACK);
+    scanf(" %[^\n]", &licensePlate);
+
+    if (strlen(licensePlate) != 7)
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] A placa precisa ter 7 caracteres!");
+        handleExitOrGoBackToMainMenu();
+    }
+
+    if (!isVehicleAlreadyRegistered(licensePlate))
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] Esse veiculo nao esta registrado no sistema!");
+        handleExitOrGoBackToMainMenu();
+    }
+    else
+    {
+        colorize(BLACK, LIGHT_YELLOW);
+        printf("Informe a quantidade de litros a abastecer (Ex: 12.75): ");
+        colorize(BLACK, LIGHT_BLACK);
+        scanf("%f", &litersToFuel);
+
+        if (litersToFuel <= 0)
+        {
+            colorize(BLACK, DARK_RED);
+            printf("[ERRO] A quantidade de litros deve ser maior que zero!");
+            handleExitOrGoBackToMainMenu();
+        }
+        else
+        {
+            int status = handleFuelVehicleInDatabase(licensePlate,litersToFuel);
+
+            if (status)
+            {
+                colorize(BLACK, LIGHT_GREEN);
+                printf("Sucesso! Veiculo abastecido!");
+                handleExitOrGoBackToMainMenu();
+            }
+            else
+            {
+                colorize(BLACK, DARK_RED);
+                printf("[ERRO] Ocorreu um erro ao abastecer o veiculo!");
+                handleExitOrGoBackToMainMenu();
+            }
         }
     }
 }

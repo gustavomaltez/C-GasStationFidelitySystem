@@ -72,7 +72,16 @@ const char *getAllVehiclesByCPFInDatabase(char *cpf)
     return getAllVehiclesByCPF(cpf);
 }
 
+//Busca o total de litros abastecidos pelo cliente
+//Retorna o total de litros ou -1.0 se der erro
 float getTotalLitersFueledByCPFInDatabase(char *cpf)
 {
     return totalLitersFueledByCPF(cpf);
+}
+
+//Incrementa o total de litros de um veículo
+//Retorna 1 se der certo ou 0 se der errado
+int handleFuelVehicleInDatabase(char* licensePlate, float liters)
+{
+    return fuelVehicle(licensePlate,liters);
 }
