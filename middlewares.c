@@ -67,6 +67,12 @@ const char *getAllClientsInDatabase()
 
 //Busca todos os veículos de um cliente e trás os dados formatados
 //Pode retornar a lista de veículos ou [NULL]
-const char *getAllVehiclesByCPFInDatabase(char *cpf){
+const char *getAllVehiclesByCPFInDatabase(char *cpf)
+{
     return getAllVehiclesByCPF(cpf);
+}
+
+float getTotalLitersFueledByCPFInDatabase(char *cpf)
+{
+    return totalLitersFueledByCPF(cpf);
 }

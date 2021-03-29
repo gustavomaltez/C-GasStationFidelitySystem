@@ -6,3 +6,4 @@ int handleDeleteClientInDatabase(char *cpf);
 int handleUpdateClientNameInDatabase(char *cpf, char *name);
 const char *getAllVehiclesByCPFInDatabase(char *cpf);
 const char *getAllClientsInDatabase();
+float getTotalLitersFueledByCPFInDatabase(char *cpf);

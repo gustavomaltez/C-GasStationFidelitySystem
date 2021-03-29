@@ -7,3 +7,4 @@ void handleDeleteClient();
 void handleChangeClientName();
 void handleListAllClients();
 void handleListClientVehicles();
+void handleShowTotalLitersFueled();

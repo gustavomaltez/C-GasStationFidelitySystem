@@ -60,6 +60,9 @@ void handleSelectChoices()
     case 2:
         handleRegisterNewVehicle();
         break;
+    case 4:
+        handleShowTotalLitersFueled();
+        break;
     case 5:
         handleDeleteClient();
         break;
@@ -376,6 +379,52 @@ void handleListClientVehicles()
         {
             colorize(BLACK, DARK_CYAN);
             printf("Exibindo todos os veiculos do cliente com o CPF: %s:\n", cpf);
+            colorize(BLACK, LIGHT_CYAN);
+            printf(clientVehiclesFormated);
+            handleExitOrGoBackToMainMenu();
+        }
+    }
+}
+
+void handleShowTotalLitersFueled()
+{
+    char cpf[12];
+
+    colorize(BLACK, LIGHT_YELLOW);
+    printf("Informe o CPF do cliente: ");
+    colorize(BLACK, LIGHT_BLACK);
+    scanf(" %[^\n]", &cpf);
+
+    if (strlen(cpf) != 11)
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] O CPF precisa ter 11 digitos!");
+        handleExitOrGoBackToMainMenu();
+    }
+
+    if (!isClientAlreadyRegistered(cpf))
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] Nao existe nenhum cliente com esse CPF");
+        handleExitOrGoBackToMainMenu();
+    }
+    else
+    {
+        const unsigned char *clientVehiclesFormated = getAllVehiclesByCPFInDatabase(cpf);
+        float totalLiters = getTotalLitersFueledByCPFInDatabase(cpf);
+
+        if ((strcmp(clientVehiclesFormated, "[NULL]") == 0) | totalLiters == -1.0)
+        {
+            colorize(BLACK, DARK_RED);
+            printf("[ERRO] Ocorreu um erro ao buscar os dados desse cliente!");
+            handleExitOrGoBackToMainMenu();
+        }
+        else
+        {   
+            colorize(BLACK, DARK_CYAN);
+            printf("O cliente com CPF \"%s\" abasteceu um total de %.2f litros\n", cpf, totalLiters);
+            colorize(BLACK, DARK_CYAN);
+            printf("Exibindo quantidade de litros abastecidos por veiculo:\n");
             colorize(BLACK, LIGHT_CYAN);
             printf(clientVehiclesFormated);
             handleExitOrGoBackToMainMenu();

@@ -8,3 +8,4 @@ int updateClientName(char* cpf, char* name);
 int deleteClientAndVehicles(char* cpf);
 const char *getClients();
 const char *getAllVehiclesByCPF(char *cpf);
+float totalLitersFueledByCPF(char *cpf);

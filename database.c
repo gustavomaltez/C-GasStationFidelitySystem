@@ -224,3 +224,33 @@ const char *getAllVehiclesByCPF(char *cpf)
         return "[NULL]";
     }
 }
+
+//Busca o total de litros abastecidos pelo cliente
+//Retorna o total de litros ou -1.0 se der erro
+float totalLitersFueledByCPF(char *cpf)
+{   
+    char query[100] = "SELECT * from vehicle WHERE (owner_cpf ==\"";
+    strcat(query, cpf);
+    strcat(query, "\");");
+
+    sqlite3_stmt *stmt = NULL;
+    sqlite3_prepare_v2(database, query, -1, &stmt, 0);
+
+    float totalLiters = 0.0;
+
+    while (sqlite3_step(stmt) == SQLITE_ROW)
+    {   
+        const unsigned char *litersInString = sqlite3_column_text(stmt, 1);
+        //Converte a string retornada em um float
+        float liters = atof(litersInString);
+
+        totalLiters+=liters;
+    }
+
+    return totalLiters;
+
+    if (sqlite3_step(stmt) != SQLITE_ROW)
+    {
+        return -1.0;
+    }
+}
