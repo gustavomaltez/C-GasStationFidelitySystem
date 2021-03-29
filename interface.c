@@ -66,6 +66,9 @@ void handleSelectChoices()
     case 6:
         handleListAllClients();
         break;
+    case 7:
+        handleListClientVehicles();
+        break;
     case 9:
         handleChangeClientName();
         break;
@@ -258,7 +261,9 @@ void handleDeleteClient()
                 printf("[ERRO] Ocorreu um erro ao deletar o cliente!");
                 handleExitOrGoBackToMainMenu();
             }
-        }else{
+        }
+        else
+        {
             handleExitOrGoBackToMainMenu();
         }
     }
@@ -331,5 +336,49 @@ void handleListAllClients()
         colorize(BLACK, LIGHT_CYAN);
         printf(clientsFormated);
         handleExitOrGoBackToMainMenu();
+    }
+}
+
+//Lista todos os veículos de um cliente
+void handleListClientVehicles()
+{
+    char cpf[12];
+
+    colorize(BLACK, LIGHT_YELLOW);
+    printf("Informe o CPF do cliente: ");
+    colorize(BLACK, LIGHT_BLACK);
+    scanf(" %[^\n]", &cpf);
+
+    if (strlen(cpf) != 11)
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] O CPF precisa ter 11 digitos!");
+        handleExitOrGoBackToMainMenu();
+    }
+
+    if (!isClientAlreadyRegistered(cpf))
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] Nao existe nenhum cliente com esse CPF");
+        handleExitOrGoBackToMainMenu();
+    }
+    else
+    {
+        const unsigned char *clientVehiclesFormated = getAllVehiclesByCPFInDatabase(cpf);
+
+        if (strcmp(clientVehiclesFormated, "[NULL]") == 0)
+        {
+            colorize(BLACK, DARK_RED);
+            printf("[ERRO] Ocorreu um erro ao buscar os veiculos desse cliente!");
+            handleExitOrGoBackToMainMenu();
+        }
+        else
+        {
+            colorize(BLACK, DARK_CYAN);
+            printf("Exibindo todos os veiculos do cliente com o CPF: %s:\n", cpf);
+            colorize(BLACK, LIGHT_CYAN);
+            printf(clientVehiclesFormated);
+            handleExitOrGoBackToMainMenu();
+        }
     }
 }

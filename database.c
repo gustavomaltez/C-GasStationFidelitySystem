@@ -167,7 +167,7 @@ const char *getClients()
     sqlite3_prepare_v2(database, "SELECT * from user", -1, &stmt, 0);
 
     //Reserva um espaço para salvar os usuários em uma string
-    char* users = malloc(sizeof(char) * 5000);
+    char *users = malloc(sizeof(char) * 5000);
     //Inicia a string como uma string vazia
     strcpy(users, "");
 
@@ -183,7 +183,42 @@ const char *getClients()
     }
 
     return users;
-    
+
+    if (sqlite3_step(stmt) != SQLITE_ROW)
+    {
+        return "[NULL]";
+    }
+}
+
+//Busca todos os veículos de um cliente e trás os dados formatados
+//Pode retornar a lista de veículos ou [NULL]
+const char *getAllVehiclesByCPF(char *cpf)
+{   
+    char query[100] = "SELECT * from vehicle WHERE (owner_cpf ==\"";
+    strcat(query, cpf);
+    strcat(query, "\");");
+
+    sqlite3_stmt *stmt = NULL;
+    sqlite3_prepare_v2(database, query, -1, &stmt, 0);
+
+    //Reserva um espaço para salvar os veículos em uma string
+    char *vehicles = malloc(sizeof(char) * 1000);
+    //Inicia a string como uma string vazia
+    strcpy(vehicles, "");
+
+    while (sqlite3_step(stmt) == SQLITE_ROW)
+    {
+        const unsigned char *plate = sqlite3_column_text(stmt, 0);
+        const unsigned char *liters = sqlite3_column_text(stmt, 1);
+        strcat(vehicles, "PLACA: ");
+        strcat(vehicles, plate);
+        strcat(vehicles, " - Total de litros: ");
+        strcat(vehicles, liters);
+        strcat(vehicles, " \n");
+    }
+
+    return vehicles;
+
     if (sqlite3_step(stmt) != SQLITE_ROW)
     {
         return "[NULL]";

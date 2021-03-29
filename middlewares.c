@@ -64,3 +64,9 @@ const char *getAllClientsInDatabase()
 {
     return getClients();
 }
+
+//Busca todos os veículos de um cliente e trás os dados formatados
+//Pode retornar a lista de veículos ou [NULL]
+const char *getAllVehiclesByCPFInDatabase(char *cpf){
+    return getAllVehiclesByCPF(cpf);
+}
