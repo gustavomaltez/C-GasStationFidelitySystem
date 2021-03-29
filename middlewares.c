@@ -85,3 +85,11 @@ int handleFuelVehicleInDatabase(char* licensePlate, float liters)
 {
     return fuelVehicle(licensePlate,liters);
 }
+
+//Altera para 0 o total de litros abastecidos em todos os
+//veículos do cliente, para poder zerar seus pontos
+//Retorna 1 se der certo ou 0 se der errado
+int handleClearClientPointsInDatabase(char* cpf)
+{
+    return clearClientPoints(cpf);
+}

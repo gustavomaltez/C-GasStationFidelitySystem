@@ -75,6 +75,8 @@ void handleSelectChoices()
     case 7:
         handleListClientVehicles();
         break;
+    case 8:
+        handleRedeemPoints();
     case 9:
         handleChangeClientName();
         break;
@@ -487,6 +489,64 @@ void handleFuelVehicle()
                 printf("[ERRO] Ocorreu um erro ao abastecer o veiculo!");
                 handleExitOrGoBackToMainMenu();
             }
+        }
+    }
+}
+
+void handleRedeemPoints()
+{
+    char cpf[12];
+    int confirm = 0;
+
+    colorize(BLACK, LIGHT_YELLOW);
+    printf("Informe o CPF do cliente: ");
+    colorize(BLACK, LIGHT_BLACK);
+    scanf(" %[^\n]", &cpf);
+
+    if (strlen(cpf) != 11)
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] O CPF precisa ter 11 digitos!");
+        handleExitOrGoBackToMainMenu();
+    }
+
+    if (!isClientAlreadyRegistered(cpf))
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] Nao existe nenhum cliente com esse CPF");
+        handleExitOrGoBackToMainMenu();
+    }
+    else
+    {   
+        float totalLiters = getTotalLitersFueledByCPFInDatabase(cpf);
+        int points = (int)totalLiters * 25;
+
+        colorize(BLACK, DARK_BLUE);
+        printf("O cliente com cpf \"%s\" tem um total de %d pontos\n",cpf, points);
+        printf("Tem certeza que deseja resgatar os pontos desse cliente? (1-SIM / 2-NAO): ");
+        colorize(BLACK, LIGHT_BLACK);
+        scanf("%d", &confirm);
+
+        if (confirm == 1)
+        {
+            int status = handleClearClientPointsInDatabase(cpf);
+
+            if (status)
+            {
+                colorize(BLACK, LIGHT_GREEN);
+                printf("Sucesso! %d pontos foram resgatados!",points);
+                handleExitOrGoBackToMainMenu();
+            }
+            else
+            {
+                colorize(BLACK, DARK_RED);
+                printf("[ERRO] Ocorreu um erro ao resgatar os pontos!");
+                handleExitOrGoBackToMainMenu();
+            }
+        }
+        else
+        {
+            handleExitOrGoBackToMainMenu();
         }
     }
 }

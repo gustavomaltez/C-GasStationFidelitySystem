@@ -5,6 +5,7 @@ int isVehicleAlreadyRegistered(char* licensePlate);
 int handleFuelVehicleInDatabase(char* licensePlate, float liters);
 int handleDeleteClientInDatabase(char *cpf);
 int handleUpdateClientNameInDatabase(char *cpf, char *name);
+int handleClearClientPointsInDatabase(char *cpf);
 const char *getAllVehiclesByCPFInDatabase(char *cpf);
 const char *getAllClientsInDatabase();
 float getTotalLitersFueledByCPFInDatabase(char *cpf);

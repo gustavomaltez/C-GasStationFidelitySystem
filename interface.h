@@ -9,3 +9,4 @@ void handleListAllClients();
 void handleListClientVehicles();
 void handleShowTotalLitersFueled();
 void handleFuelVehicle();
+void handleRedeemPoints();

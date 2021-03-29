@@ -272,3 +272,15 @@ int fuelVehicle(char *licensePlate, float liters)
     else
         return 1;
 }
+
+int clearClientPoints(char* cpf)
+{
+    char query[100] = "UPDATE vehicle SET liters=\"0\" WHERE (owner_cpf == \"";
+    strcat(query, cpf);
+    strcat(query, "\");");
+
+    if (sqlite3_exec(database, query, 0, 0, 0) != SQLITE_OK)
+        return 0;
+    else
+        return 1;
+}
