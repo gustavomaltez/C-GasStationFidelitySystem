@@ -215,6 +215,7 @@ void handleRegisterNewVehicle()
 void handleDeleteClient()
 {
     char cpf[12];
+    int confirm = 0;
 
     colorize(BLACK, LIGHT_YELLOW);
     printf("Informe o CPF do cliente: ");
@@ -236,19 +237,28 @@ void handleDeleteClient()
     }
     else
     {
+        colorize(BLACK, DARK_BLUE);
+        printf("Tem certeza que deseja deletar esse cliente? (1-SIM / 2-NAO): ");
+        colorize(BLACK, LIGHT_BLACK);
+        scanf("%d", &confirm);
 
-        int status = handleDeleteClientInDatabase(cpf);
+        if (confirm == 1)
+        {
+            int status = handleDeleteClientInDatabase(cpf);
 
-        if (status)
-        {
-            colorize(BLACK, LIGHT_GREEN);
-            printf("Sucesso! Cliente e veiculos deletados do sistema!");
-            handleExitOrGoBackToMainMenu();
-        }
-        else
-        {
-            colorize(BLACK, DARK_RED);
-            printf("[ERRO] Ocorreu um erro ao deletar o cliente!");
+            if (status)
+            {
+                colorize(BLACK, LIGHT_GREEN);
+                printf("Sucesso! Cliente e veiculos deletados do sistema!");
+                handleExitOrGoBackToMainMenu();
+            }
+            else
+            {
+                colorize(BLACK, DARK_RED);
+                printf("[ERRO] Ocorreu um erro ao deletar o cliente!");
+                handleExitOrGoBackToMainMenu();
+            }
+        }else{
             handleExitOrGoBackToMainMenu();
         }
     }
@@ -304,22 +314,22 @@ void handleChangeClientName()
 
 //Lista todos os usuáros do sistema
 void handleListAllClients()
-{   
+{
 
     const unsigned char *clientsFormated = getAllClientsInDatabase();
 
-        if (strcmp(clientsFormated, "[NULL]") == 0)
-        {
-            colorize(BLACK, DARK_RED);
-            printf("[ERRO] Ocorreu um erro ao buscar os clientes!");
-            handleExitOrGoBackToMainMenu();
-        }
-        else
-        {   
-            colorize(BLACK, DARK_CYAN);
-            printf("Exibindo todos os clientes do sistema:\n");
-            colorize(BLACK, LIGHT_CYAN);
-            printf(clientsFormated);
-            handleExitOrGoBackToMainMenu();
-        }
+    if (strcmp(clientsFormated, "[NULL]") == 0)
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] Ocorreu um erro ao buscar os clientes!");
+        handleExitOrGoBackToMainMenu();
+    }
+    else
+    {
+        colorize(BLACK, DARK_CYAN);
+        printf("Exibindo todos os clientes do sistema:\n");
+        colorize(BLACK, LIGHT_CYAN);
+        printf(clientsFormated);
+        handleExitOrGoBackToMainMenu();
+    }
 }
