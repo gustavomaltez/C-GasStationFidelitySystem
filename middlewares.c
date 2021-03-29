@@ -55,5 +55,12 @@ int isVehicleAlreadyRegistered(char *licensePlate)
 //Retorna 1 se der certo e 0 se der errado
 int handleUpdateClientNameInDatabase(char *cpf, char *name)
 {
-    return updateClientName(cpf,name);
+    return updateClientName(cpf, name);
+}
+
+//Busca todos os clientes e trás os dados formatados
+//Pode retornar a lista de clietes ou [NULL]
+const char *getAllClientsInDatabase()
+{
+    return getClients();
 }

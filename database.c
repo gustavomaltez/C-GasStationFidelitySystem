@@ -159,3 +159,34 @@ int updateClientName(char *cpf, char *name)
     else
         return 1;
 }
+
+//Busca todos os clientes e trás os dados formatados
+//Pode retornar a lista de clietes ou [NULL]
+const char *getClients()
+{
+    sqlite3_stmt *stmt = NULL;
+    sqlite3_prepare_v2(database, "SELECT * from user", -1, &stmt, 0);
+
+    //Reserva um espaço para salvar os usuários em uma string
+    char* users = malloc(sizeof(char) * 5000);
+    //Inicia a string como uma string vazia
+    strcpy(users, "");
+
+    while (sqlite3_step(stmt) == SQLITE_ROW)
+    {
+        const unsigned char *cpf = sqlite3_column_text(stmt, 0);
+        const unsigned char *name = sqlite3_column_text(stmt, 1);
+        strcat(users, "CPF: ");
+        strcat(users, cpf);
+        strcat(users, " - Nome: ");
+        strcat(users, name);
+        strcat(users, " \n");
+    }
+
+    return users;
+    
+    if (sqlite3_step(stmt) != SQLITE_ROW)
+    {
+        return "[NULL]";
+    }
+}

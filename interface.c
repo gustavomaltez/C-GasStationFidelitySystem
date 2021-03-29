@@ -63,6 +63,9 @@ void handleSelectChoices()
     case 5:
         handleDeleteClient();
         break;
+    case 6:
+        handleListAllClients();
+        break;
     case 9:
         handleChangeClientName();
         break;
@@ -251,7 +254,7 @@ void handleDeleteClient()
     }
 }
 
-// terminar
+//Lida com a atualização do nome de um usuário
 void handleChangeClientName()
 {
     char cpf[12];
@@ -297,4 +300,26 @@ void handleChangeClientName()
             handleExitOrGoBackToMainMenu();
         }
     }
+}
+
+//Lista todos os usuáros do sistema
+void handleListAllClients()
+{   
+
+    const unsigned char *clientsFormated = getAllClientsInDatabase();
+
+        if (strcmp(clientsFormated, "[NULL]") == 0)
+        {
+            colorize(BLACK, DARK_RED);
+            printf("[ERRO] Ocorreu um erro ao buscar os clientes!");
+            handleExitOrGoBackToMainMenu();
+        }
+        else
+        {   
+            colorize(BLACK, DARK_CYAN);
+            printf("Exibindo todos os clientes do sistema:\n");
+            colorize(BLACK, LIGHT_CYAN);
+            printf(clientsFormated);
+            handleExitOrGoBackToMainMenu();
+        }
 }

@@ -6,3 +6,4 @@ int registerClient(char* cpf, char* name);
 int registerVehicle(char* cpf, char* licensePlate);
 int updateClientName(char* cpf, char* name);
 int deleteClientAndVehicles(char* cpf);
+const char *getClients();

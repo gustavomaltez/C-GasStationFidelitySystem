@@ -5,3 +5,4 @@ void handleRegisterNewVehicle();
 void handleRegisterNewClient();
 void handleDeleteClient();
 void handleChangeClientName();
+void handleListAllClients();
