@@ -36,6 +36,7 @@ void showMenu()
     printf("\t |6 - Listar todos os clientes.                          |\n");
     printf("\t |7 - Listar veiculos de um cliente.                     |\n");
     printf("\t |8 - Resgatar pontos de um cliente.                     |\n");
+    printf("\t |9 - Alterar nome do cliente.                           |\n");
     printf("\t |0 - Sair.                                              |\n");
     printf("\t |_______________________________________________________|\n\n");
     colorize(BLACK, LIGHT_YELLOW);
@@ -58,6 +59,9 @@ void handleSelectChoices()
         break;
     case 2:
         handleRegisterNewVehicle();
+        break;
+    case 5:
+        handleDeleteClient();
         break;
     default:
         showMenu();
@@ -197,6 +201,49 @@ void handleRegisterNewVehicle()
                 printf("[ERRO] Ocorreu um erro ao registrar o veiculo!");
                 handleExitOrGoBackToMainMenu();
             }
+        }
+    }
+}
+
+//Lida com a remoção de um cliente do sistema
+void handleDeleteClient()
+{
+    char cpf[12];
+
+    colorize(BLACK, LIGHT_YELLOW);
+    printf("Informe o CPF do cliente: ");
+    colorize(BLACK, LIGHT_BLACK);
+    scanf(" %[^\n]", &cpf);
+
+    if (strlen(cpf) != 11)
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] O CPF precisa ter 11 digitos!");
+        handleExitOrGoBackToMainMenu();
+    }
+
+    if (!isClientAlreadyRegistered(cpf))
+    {
+        colorize(BLACK, DARK_RED);
+        printf("[ERRO] Nao existe nenhum cliente com esse CPF");
+        handleExitOrGoBackToMainMenu();
+    }
+    else
+    {
+        
+        int status = handleDeleteClientInDatabase(cpf);
+
+        if (status)
+        {
+            colorize(BLACK, LIGHT_GREEN);
+            printf("Sucesso! Cliente e veiculos deletados do sistema!");
+            handleExitOrGoBackToMainMenu();
+        }
+        else
+        {
+            colorize(BLACK, DARK_RED);
+            printf("[ERRO] Ocorreu um erro ao deletar o cliente!");
+            handleExitOrGoBackToMainMenu();
         }
     }
 }

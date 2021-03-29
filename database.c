@@ -105,6 +105,22 @@ int registerClient(char *cpf, char *name)
         return 1;
 }
 
+int deleteClientAndVehicles(char *cpf)
+{
+    char query[100] = "DELETE FROM user WHERE (cpf ==\"";
+    strcat(query, cpf);
+    strcat(query, "\"); ");
+    strcat(query, "DELETE FROM vehicle WHERE (owner_cpf ==\"");
+    strcat(query, cpf);
+    strcat(query, "\"); ");
+    printf("\n%s",query);
+
+    if (sqlite3_exec(database, query, 0, 0, 0) != SQLITE_OK)
+        return 0;
+    else
+        return 1;
+}
+
 int registerVehicle(char *cpf, char *licensePlate)
 {
     char query[100] = "INSERT INTO vehicle VALUES (\"";

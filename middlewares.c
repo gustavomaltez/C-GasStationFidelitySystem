@@ -25,9 +25,16 @@ int handleRegisterClientInDatabase(char *cpf, char *name)
 
 //Registra um veículo no banco de dados
 //Retorna 1 se deu certo ou 0 se deu erro
-int handleRegisterVehicleInDatabase(char* cpf, char* licensePlate)
+int handleRegisterVehicleInDatabase(char *cpf, char *licensePlate)
 {
     return registerVehicle(cpf, licensePlate);
+}
+
+//Remove um cliente e seus veículos do banco de dados
+//Retorna 1 se deu certo ou 0 se deu erro
+int handleDeleteClientInDatabase(char *cpf)
+{
+    return deleteClientAndVehicles(cpf);
 }
 
 //Busca por um veículo no banco de dados usando uma placa
