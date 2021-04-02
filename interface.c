@@ -82,6 +82,7 @@ void handleSelectChoices()
         break;
     default:
         showMenu();
+        handleSelectChoices();
         break;
     }
 }
